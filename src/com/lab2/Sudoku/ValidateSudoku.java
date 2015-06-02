@@ -1,8 +1,9 @@
 package com.lab2.Sudoku;
 
-public class ValidateSudoku {
+import com.lab2.Util.SudokuUtil;
 
-	//public static int cpt = 0;
+
+public class ValidateSudoku {
 	
 	private int[][] sudoku;
 	
@@ -10,16 +11,37 @@ public class ValidateSudoku {
 		this.sudoku = sudoku;
 	}
 	
-	public boolean validSudoku(){
+	public boolean insertNumber(int x, int y){
+		if(y == 9){
+			return true;
+		}
 		
-		for (int i = 0; i < sudoku.length; i++) {
-			for (int j = 0; j < sudoku[i].length; j++) {
-				//System.out.println(i + " " + j);
-				System.out.println(validNumber(i, j, sudoku[i][j]));
+		if(sudoku[x][y] == 0){
+			for (int i = 1; i <= 9; i++) {
+				if(validNumber(x, y, i)){
+					sudoku[x][y] = i;				
+					
+					if(x==8){
+						if(insertNumber(0, y+1)){
+							return true;
+						}
+					}else{
+						if(insertNumber(x+1, y)){
+							return true;
+						}
+					}
+				}
+			}
+			//sudoku[x][y] = 0;
+		}else{
+			if(x==8){
+				return insertNumber(0, y+1);
+			}else{
+				return insertNumber(x+1, y);
 			}
 		}
-		//System.out.println(validNumber(0, 0, sudoku[0][0]));
-		//System.out.println(cpt);
+		sudoku[x][y] = 0;
+		
 		return false;
 	}
 
@@ -28,16 +50,15 @@ public class ValidateSudoku {
 	 * has the same value than pos and if pos is between 1 and 9
 	 * @return
 	 */
-	private boolean validNumber(int x, int y, int pos){
+	private boolean validNumber(int x, int y, int nb){
 		for (int i = 0; i < sudoku.length; i++) {
-			if(!(pos >= 1 && pos <=9) || (pos == sudoku[x][i] && y != i) || (pos == sudoku[i][y] && x != i)){
-				//cpt++;
+			if(!(nb >= 1 && nb <=9) || (nb == sudoku[x][i] && y != i) || (nb == sudoku[i][y] && x != i)){
 				return false;
 			}
 		}	
 		for (int i = x/3*3; i < x/3*3+3; i++) {
 			for (int j = y/3*3; j < y/3*3+3; j++) {
-				if(sudoku[i][y] != 0 && pos == sudoku[i][j] && (x != i || y != j)){
+				if(sudoku[i][y] != 0 && nb == sudoku[i][j] && (x != i || y != j)){
 					//cpt++;
 					return false;
 				}
