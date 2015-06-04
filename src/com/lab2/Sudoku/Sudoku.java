@@ -7,8 +7,6 @@ public class Sudoku {
 	public static void main(String[] args) {
 		
 		if(args.length == 1){
-			
-			
 			int[][] sudoku = new int[9][9];
 			String filePath = args[0];
 						
@@ -27,7 +25,7 @@ public class Sudoku {
 			System.out.println("FINAL");
 			SudokuUtil.printSudoku(sudoku);
 			
-			System.out.println("Temps d'execution:"+(fin-debut));
+			System.out.println("Temps d'execution: "+(fin-debut));
 			
 		}else{
 			System.out.println("Vous devez entrer le nom du fichier Sudoku.");

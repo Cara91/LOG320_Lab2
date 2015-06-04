@@ -1,8 +1,5 @@
 package com.lab2.Sudoku;
 
-import com.lab2.Util.SudokuUtil;
-
-
 public class ValidateSudoku {
 	
 	private int[][] sudoku;
@@ -46,7 +43,7 @@ public class ValidateSudoku {
 	}
 
 	/**
-	 * Valid only if no number from same ligne, column or block of 9 of the sudoku table at [x,y] 
+	 * Valid only if no number from same line, column or block of 9 of the sudoku table at [x,y]
 	 * has the same value than pos and if pos is between 1 and 9
 	 * @return
 	 */
