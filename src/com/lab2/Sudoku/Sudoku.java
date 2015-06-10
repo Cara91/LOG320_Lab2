@@ -14,12 +14,11 @@ public class Sudoku {
 			
 			System.out.println("INITIAL");
 			SudokuUtil.printSudoku(sudoku);
-			
-			ValidateSudoku valid = new ValidateSudoku(sudoku);
+
 			long debut = System.currentTimeMillis();
 
-			valid.fillNumberOccurenceTables();
-			valid.insertNumber(0, 0);
+			ValidateSudoku valid = new ValidateSudoku(sudoku);
+			valid.solveSudoku();
 			
 			long fin = System.currentTimeMillis();
 			
