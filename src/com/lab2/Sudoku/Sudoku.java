@@ -17,7 +17,8 @@ public class Sudoku {
 			
 			ValidateSudoku valid = new ValidateSudoku(sudoku);
 			long debut = System.currentTimeMillis();
-			
+
+			valid.fillNumberOccurenceTables();
 			valid.insertNumber(0, 0);
 			
 			long fin = System.currentTimeMillis();
