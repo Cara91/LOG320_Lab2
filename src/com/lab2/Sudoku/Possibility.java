@@ -1,15 +1,13 @@
 package com.lab2.Sudoku;
 
-import javafx.geometry.Pos;
-
 public class Possibility implements Comparable {
-    int i;
-    int j;
+    int x;
+    int y;
     int value;
 
-    public Possibility(int i, int j, int value) {
-        this.i = i;
-        this.j = j;
+    public Possibility(int x, int y, int value) {
+        this.x = x;
+        this.y = y;
         this.value = value;
     }
 

@@ -12,18 +12,23 @@ public class Sudoku {
 						
 			sudoku = TextFileUtil.readFile(filePath);
 			
-			System.out.println("INITIAL");
+			System.out.println("Voici le sudoku initial:");
 			SudokuUtil.printSudoku(sudoku);
+            boolean isValid = false;
 
 			long debut = System.currentTimeMillis();
 
 			ValidateSudoku valid = new ValidateSudoku(sudoku);
-			valid.solveSudoku();
+			isValid = valid.solveSudoku();
 			
 			long fin = System.currentTimeMillis();
-			
-			System.out.println("FINAL");
-			SudokuUtil.printSudoku(sudoku);
+
+            if(isValid) {
+                System.out.println("Voici le sudoku résolu:");
+                SudokuUtil.printSudoku(sudoku);
+            }else{
+                System.out.println("Le sudoku précédent n'a pas de solution!");
+            }
 			
 			System.out.println("Temps d'execution: "+(fin-debut));
 			

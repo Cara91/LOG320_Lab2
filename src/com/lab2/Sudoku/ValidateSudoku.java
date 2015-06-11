@@ -10,7 +10,7 @@ public class ValidateSudoku {
 	private static int[][] lineNumberOccurence = new int[9][9];
 	private static int[][] columnNumberOccurence =  new int[9][9];
 	private static int[][] blocNumberOccurence = new int[9][9];
-	private List<Possibility> possibilities = new ArrayList<>();
+	private List<Possibility> possibilities = new ArrayList<Possibility>();
 	private Possibility possibility;
 	
 	public ValidateSudoku(int[][] sudoku){
@@ -19,10 +19,11 @@ public class ValidateSudoku {
 
 	public boolean solveSudoku() {
 		fillNumberOccurenceTables();
+        createPossibilitiesList();
 		return insertNumber(0);
 	}
 
-	public void fillNumberOccurenceTables(){
+	private void fillNumberOccurenceTables(){
 		for (int i=0 ; i<9 ; i++) {
 			for (int j=0 ; j<9 ; j++) {
                 if(this.sudoku[i][j]!=0) {
@@ -32,19 +33,31 @@ public class ValidateSudoku {
                 }
 			}
 		}
-
-		for (int i=0 ; i<9 ; i++) {
-			for (int j=0 ; j<9 ; j++) {
-				if(this.sudoku[i][j]==0) {
-					possibilities.add(new Possibility(i, j, calculatePossibilities(i, j)));
-				}
-			}
-		}
-
-		Collections.sort(possibilities);
 	}
-	
-	private boolean insertNumber(int index) {
+
+    private void createPossibilitiesList() {
+        for (int i=0 ; i<9 ; i++) {
+            for (int j=0 ; j<9 ; j++) {
+                if(this.sudoku[i][j]==0) {
+                    possibilities.add(new Possibility(i, j, calculatePossibilities(i, j)));
+                }
+            }
+        }
+
+        Collections.sort(possibilities);
+    }
+
+    private int calculatePossibilities(int x, int y) {
+        int poss = 0;
+        for (int k=0; k < 9; k++) {
+            if (lineNumberOccurence[x][k] == 0 && columnNumberOccurence[y][k] == 0 && blocNumberOccurence[3*(x/3)+(y/3)][k] == 0) {
+                poss++;
+            }
+        }
+        return poss;
+    }
+
+    private boolean insertNumber(int index) {
 
 		if(index > possibilities.size() - 1) {
 			return true;
@@ -52,8 +65,8 @@ public class ValidateSudoku {
 
 		possibility = possibilities.get(index);
 
-		int x = possibility.i;
-		int y = possibility.j;
+		int x = possibility.x;
+		int y = possibility.y;
 
 		for (int i = 0; i < 9; i++) {
 			if(lineNumberOccurence[x][i] == 0 && columnNumberOccurence[y][i] == 0 && blocNumberOccurence[(3 * (x / 3)) + (y / 3)][i] == 0) {
@@ -73,15 +86,5 @@ public class ValidateSudoku {
 		}
 		
 		return false;
-	}
-
-	private int calculatePossibilities(int i, int j) {
-		int poss = 0;
-		for (int k=0; k < 9; k++) {
-			if (lineNumberOccurence[i][k] == 0 && columnNumberOccurence[j][k] == 0 && blocNumberOccurence[3*(i/3)+(j/3)][k] == 0) {
-				poss++;
-			}
-		}
-		return poss;
 	}
 }
